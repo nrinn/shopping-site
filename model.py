@@ -67,9 +67,10 @@ class Melon(object):
         # the database records and making a melon for each row. This is done
         # by unpacking in the for-loop.
 
+
         melons = [Melon(*row) for row in melon_rows]
 
-        print melons
+        # print melons
 
         return melons
 
