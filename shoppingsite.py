@@ -74,22 +74,17 @@ def add_to_cart(id):
     page and display a confirmation message: 'Successfully added to cart'.
     """
 
-    # TODO: Finish shopping cart functionality
-    #   - use session variables to hold cart list 
     melon = model.Melon.get_by_id(id)
 
     if "cart" not in session:
-        # if carts not in session then you need to add a sub dictionary
-        print "init"
-        session["cart"] = {melon.id : 1}
-    else:
-        if melon.id not in session["cart"].keys():
-            print "1st"
-            session["cart"][melon.id] = session["cart"].get(melon.id, 1)
-        else:
-            print "2nd"
-            session["cart"][melon.id] += 1 
-    print session
+        session["cart"] = {}
+
+    # checks if the melon.id is a key in session. If it is not there, get returns
+    # the value 0. We then add one to increment the value. This value is then 
+    # bound to the key, which is a nested dictionary in session "cart". This nested 
+    # dictionary holds the key melon.id 
+    session["cart"][str(melon.id)] = session["cart"].get(str(melon.id), 0) +1
+
     return redirect("/cart")
 
 
