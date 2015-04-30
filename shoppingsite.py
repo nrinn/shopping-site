@@ -66,19 +66,23 @@ def shopping_cart():
     
     # display_info = {}
     display_info = []
+    total = 0
     
     list_melon_objects = []
     for i in session["cart"]:
         list_melon_objects.append(model.Melon.get_by_id(int(i)))
 
     for obj in list_melon_objects: 
-        quant = session[str("cart")][str(obj.id)]
+        quant = session["cart"][str(obj.id)]
         price = obj.price
+        subtotal_int = quant * price
+        subtotal_str = "$%.2f" % (subtotal_int)
+        total += subtotal_int
         # display_info[obj.id] = [obj.common_name, quant, obj.price, quant * obj.price]
-        display_info.append([obj.common_name, quant, price, quant * price])
+        display_info.append([obj.common_name, quant, obj.price_str(), subtotal_str])
     print display_info
 
-    return render_template("cart.html", shopping_cart_list = display_info)
+    return render_template("cart.html", shopping_cart_list = display_info, final_total = total)
 
 
 @app.route("/add_to_cart/<int:id>")
@@ -98,7 +102,7 @@ def add_to_cart(id):
     # the value 0. We then add one to increment the value. This value is then 
     # bound to the key, which is a nested dictionary in session "cart". This nested 
     # dictionary holds the key melon.id 
-    session[str("cart")][str(melon.id)] = session[str("cart")].get(str(melon.id), 0) +1
+    session["cart"][str(melon.id)] = session["cart"].get(str(melon.id), 0) +1
     flash("Succesfully added to cart.")
 
     return redirect("/cart")
