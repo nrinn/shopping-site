@@ -10,7 +10,9 @@ div.navbar-header img {
     margin-right: 7px;
 }
 
-
+ul.nav img {
+    height: 15px;
+}
 /* all-melons listing */
 
 div.melon-summary img {
