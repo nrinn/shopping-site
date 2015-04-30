@@ -63,8 +63,6 @@ def shopping_cart():
 
     # TODO: Display the contents of the shopping cart.
     #   - The cart is a list in session containing melons added
-    
-    # display_info = {}
     display_info = []
     total = 0
     
@@ -78,7 +76,7 @@ def shopping_cart():
         subtotal_int = quant * price
         subtotal_str = "$%.2f" % (subtotal_int)
         total += subtotal_int
-        # display_info[obj.id] = [obj.common_name, quant, obj.price, quant * obj.price]
+
         display_info.append([obj.common_name, quant, obj.price_str(), subtotal_str])
     print display_info
 
@@ -94,7 +92,7 @@ def add_to_cart(id):
     """
 
     melon = model.Melon.get_by_id(id)
-
+    melon_id_str = str(melon.id)
     if "cart" not in session:
         session["cart"] = {}
 
@@ -102,7 +100,7 @@ def add_to_cart(id):
     # the value 0. We then add one to increment the value. This value is then 
     # bound to the key, which is a nested dictionary in session "cart". This nested 
     # dictionary holds the key melon.id 
-    session["cart"][str(melon.id)] = session["cart"].get(str(melon.id), 0) +1
+    session["cart"][melon_id_str] = session["cart"].get(melon_id_str, 0) +1
     flash("Succesfully added to cart.")
 
     return redirect("/cart")
