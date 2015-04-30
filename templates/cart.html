@@ -13,6 +13,15 @@
         </tr>
         </thead>
         <tbody>
+        {% for melon in shopping_cart_list %}
+            <tr>
+
+                    {% for info in melon %}
+                        <td>{{ info }}</td>
+                    {% endfor %}
+
+            </tr>
+        {% endfor %}
         <tr>
             <td>Ancient Watermelon</td>
             <td>5</td>

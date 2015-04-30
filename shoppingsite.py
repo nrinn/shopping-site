@@ -78,7 +78,7 @@ def shopping_cart():
         display_info.append([obj.common_name, quant, price, quant * price])
     print display_info
 
-    return render_template("cart.html")
+    return render_template("cart.html", shopping_cart_list = display_info)
 
 
 @app.route("/add_to_cart/<int:id>")
