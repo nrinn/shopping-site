@@ -59,9 +59,16 @@ def show_melon(id):
 @app.route("/cart")
 def shopping_cart():
     """Display content of shopping cart."""
+    print session
 
     # TODO: Display the contents of the shopping cart.
     #   - The cart is a list in session containing melons added
+    
+    list_melon_objects = []
+    for i in session["cart"]:
+        list_melon_objects.append(model.Melon.get_by_id(int(i)))
+
+    print list_melon_objects
 
     return render_template("cart.html")
 
@@ -83,7 +90,8 @@ def add_to_cart(id):
     # the value 0. We then add one to increment the value. This value is then 
     # bound to the key, which is a nested dictionary in session "cart". This nested 
     # dictionary holds the key melon.id 
-    session["cart"][str(melon.id)] = session["cart"].get(str(melon.id), 0) +1
+    session[str("cart")][str(melon.id)] = session[str("cart")].get(str(melon.id), 0) +1
+    flash("Succesfully added to cart.")
 
     return redirect("/cart")
 
