@@ -64,11 +64,19 @@ def shopping_cart():
     # TODO: Display the contents of the shopping cart.
     #   - The cart is a list in session containing melons added
     
+    # display_info = {}
+    display_info = []
+    
     list_melon_objects = []
     for i in session["cart"]:
         list_melon_objects.append(model.Melon.get_by_id(int(i)))
 
-    print list_melon_objects
+    for obj in list_melon_objects: 
+        quant = session[str("cart")][str(obj.id)]
+        price = obj.price
+        # display_info[obj.id] = [obj.common_name, quant, obj.price, quant * obj.price]
+        display_info.append([obj.common_name, quant, price, quant * price])
+    print display_info
 
     return render_template("cart.html")
 
